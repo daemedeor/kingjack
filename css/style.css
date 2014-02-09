@@ -32,20 +32,25 @@ button {
   width: 100%;
   padding: 10px 20px;
   position: relative;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  -ms-border-radius: 6px;
+  -o-border-radius: 6px;
+  border-radius: 6px;
 }
-/* line 38, style.scss */
+/* line 39, style.scss */
 #playfield h1 {
   display: inline;
   font-size: 4.5em;
   text-shadow: 2px 2px 1px rgba(255, 255, 255, 0.2);
 }
-/* line 43, style.scss */
+/* line 44, style.scss */
 #playfield #strt_btn {
   position: absolute;
   left: 3%;
   top: 12%;
 }
-/* line 48, style.scss */
+/* line 49, style.scss */
 #playfield .guiCard, #playfield #guiDeck {
   height: 140px;
   width: 90px;
@@ -64,14 +69,14 @@ button {
   -o-border-radius: 6px;
   border-radius: 6px;
 }
-/* line 60, style.scss */
+/* line 61, style.scss */
 #playfield #guiDeck {
   background-color: red;
   position: absolute;
   top: 30px;
   right: 40px;
 }
-/* line 67, style.scss */
+/* line 68, style.scss */
 #playfield #top-player, #playfield #btm-player {
   position: absolute;
   left: 20%;
@@ -79,17 +84,17 @@ button {
   width: 600px;
   padding: 10px;
 }
-/* line 76, style.scss */
+/* line 77, style.scss */
 #playfield #btm-player {
   bottom: 8%;
 }
-/* line 80, style.scss */
+/* line 81, style.scss */
 #playfield .action-btn {
   float: right;
   display: inline;
 }
 
-/* line 86, style.scss */
+/* line 87, style.scss */
 top-player-1, top-player-2, top-player-3, top-player-4, top-player-5 {
   position: relative;
 }

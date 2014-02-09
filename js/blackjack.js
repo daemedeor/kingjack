@@ -233,9 +233,9 @@ $(document).ready(function(){
 
 	var currentHand = [];
 	var playerHand =[];
- 	var computerHand = [];
- 	var gameDeck;
- 	var game;
+	var computerHand = [];
+	var gameDeck;
+	var game;
 	//patience is a virture or something
 	var deck_position = $('#guiDeck').position();
 	var top_card_count = 0;
@@ -255,9 +255,9 @@ $(document).ready(function(){
 			playerHand.push(currentHand[h]);
 		}
 		console.log(playerHand);
-		if(playerHand.handvalue(playerHand) == 21{
-			alert("you win")
-		})
+		if(playerHand.handvalue(playerHand) == 21){
+			alert("you win");
+		}
 	});
 
 	$('#hold').on("click", function() {
@@ -273,17 +273,6 @@ $(document).ready(function(){
 	$('#db-deal-btm').on("click", function() {
 		guiDealCard("btm-player");
 	});
-
-	// Functions
-	// 1. Hand Creation
-	// function guiBuildHand(player) {
-	// 	var which_player = player;
-	// 	for (var i = 1; i < 6; i++) {
-	// 		$('#' + which_player).append("<div class=\"guiCard\" id=\"" + which_player + "-" + i + "\"></div>");
-	// 	}
-	// }
-
-
 
 	// 2. Dealing Triggers
 	function guiDealCard(player) {

@@ -47,7 +47,7 @@ $(document).ready(function() {
 	function animate(){
 		var pos = $('#top-player-1').position();
 		console.log(pos);
-		$('#guiDeck-animate').animate({top: 410, right: 681}, 1500); // 122 to the right
+		$('#guiDeck').animate({top: 93, right: 681}, 1500); // 122 to the right
 		// 93 681 top
 		// 410 681
 	}
