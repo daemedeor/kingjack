@@ -185,34 +185,34 @@ function blackJack() {
 		return hand;	
 	};
 
-			function Rules() {
-		if(player_2.hand.value > 21){ // bust
-			player_1.wins();
-		}else if(player_1.hand.value < 22){
-			if(player_1.hand.value > player_2.hand.value) {
-					player_1.wins();
-			}else if(player_2.hand.value > player_1.hand.value){
-				player_2.wins();
+	this.rules = function(player_1,player_2) {
+		if(player_2 > 21){ // bust
+			alert("Player one wins");
+		}else if(player_1 < 22){
+			if(player_1 > player_2) {
+					alert("Player one wins");
+			}else if(player_2 > player_1){
+				alert("Player two wins");
 			}else{
-				alert("No One Wins...");
+				alert("No One wins...");
 			}
 			
 		}else{
-			player_2.wins();
+			alert("Player two wins");
 		}
 
-		if(player_1.hand.value > 21){//bust
-			player_2.wins();
-		}else if(player_2.hand.value<22){
-			if(player_1.hand.value > player_2.hand.value) {
-				player_1.wins();
-			}else if(player_2.hand.value > player_1.hand.value) {
-				player_2.wins();
+		if(player_1 > 21){//bust
+			alert("player one wins");
+		}else if(player_2<22){
+			if(player_1 > player_2) {
+				alert("player_1 wins");
+			}else if(player_2 > player_1) {
+				alert("player_2 wins");
 			}else{
-				alert("No One Wins...");
+				alert("No One wins...");
 			}
 		}
-		}
+	};
 
 	this.hit = function(playerHand, deck){
 		var currentHand = [];
@@ -227,6 +227,27 @@ function blackJack() {
 		}
 		return currentHand;
 	};
+
+	this.computerPlay = function(computerHand, deck){
+		var compCurrentHand = [];
+		var compValue = this.handvalue(computerHand);
+		var cValue= "";
+		var currentHand =[];
+
+		if (computerHand.length < 5){
+			currentHand.push(deck.deal(1));
+			compCurrentHand.push((currentHand[0][0]));
+			cValue = compValue + this.handvalue(compCurrentHand);
+			if(cValue < 21){
+				computerHand.push(currentHand[0]);
+				this.computerPlay(computerHand, deck);
+			}
+			else{
+				return computerHand;
+			}
+		}
+		return computerHand;
+	};
 }
 
 $(document).ready(function(){
@@ -236,6 +257,8 @@ $(document).ready(function(){
 	var computerHand = [];
 	var gameDeck;
 	var game;
+	var playerValue;
+	var computerValue;
 	//patience is a virture or something
 	var deck_position = $('#guiDeck').position();
 	var top_card_count = 0;
@@ -255,13 +278,31 @@ $(document).ready(function(){
 			playerHand.push(currentHand[h]);
 		}
 		console.log(playerHand);
-		if(playerHand.handvalue(playerHand) == 21){
-			alert("you win");
+		playerValue = game.handvalue(playerHand);
+		if(playerValue == 21){
+			$("#hold").click();
 		}
 	});
 
 	$('#hold').on("click", function() {
-		console.log("Pressed Hold");
+		currentHand = game.hit(computerHand, gameDeck);
+		var cHandLength = currentHand.length;
+		for(h = 0; h<cHandLength; h++){
+			computerHand.push(currentHand[h]);
+		}
+		if(game.handvalue(computerHand) == 21 && playerValue !== 21){
+			alert("The Computer has Blackjacked.");
+		}else{
+			compHand = game.computerPlay(computerHand,gameDeck);
+			var compLength = compHand.length;
+			for(var z=0; z<compLength; z++){
+				computerHand.push(compHand[z]);
+			}
+			computerValue = game.handvalue(computerHand);
+			game.rules(playerValue,computerValue);
+
+		}
+
 	});
 
 
