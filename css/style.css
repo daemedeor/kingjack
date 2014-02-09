@@ -69,14 +69,14 @@ button {
   -o-border-radius: 6px;
   border-radius: 6px;
 }
-/* line 61, style.scss */
+/* line 62, style.scss */
 #playfield #guiDeck {
   background-color: red;
   position: absolute;
   top: 30px;
   right: 40px;
 }
-/* line 68, style.scss */
+/* line 69, style.scss */
 #playfield #top-player, #playfield #btm-player {
   position: absolute;
   left: 20%;
@@ -84,17 +84,17 @@ button {
   width: 600px;
   padding: 10px;
 }
-/* line 77, style.scss */
+/* line 78, style.scss */
 #playfield #btm-player {
   bottom: 8%;
 }
-/* line 81, style.scss */
+/* line 82, style.scss */
 #playfield .action-btn {
   float: right;
   display: inline;
 }
 
-/* line 87, style.scss */
+/* line 88, style.scss */
 top-player-1, top-player-2, top-player-3, top-player-4, top-player-5 {
   position: relative;
 }

@@ -57,6 +57,7 @@ button {
 		background-repeat: repeat, no-repeat;
 		@include box-shadow(black 2px 2px 10px);
 		@include border-radius(6px);
+		// position: absolute;
 	}
 	#guiDeck {
 		@extend .guiCard;

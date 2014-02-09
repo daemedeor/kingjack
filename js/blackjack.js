@@ -252,12 +252,15 @@ function blackJack() {
 
 $(document).ready(function(){
 
+	$('.guiCard').fadeTo(0, 0.1);
+	$('.guiCard span').fadeTo(0, 0.1);
+
 	var currentHand = [];
 	var playerHand =[];
 	var computerHand = [];
 	var gameDeck;
 	var game;
-	var playerValue;
+	var playerValue = 0;
 	var computerValue;
 	//patience is a virture or something
 	var deck_position = $('#guiDeck').position();
@@ -277,11 +280,19 @@ $(document).ready(function(){
 		for(var h = 0; h<currentHand.length; h++){
 			playerHand.push(currentHand[h]);
 		}
-		console.log(playerHand);
+		for (var card in playerHand){
+			btm_card_count++;
+			console.log(playerHand[card]);
+			$('#btm-player-' + btm_card_count + " span").html(playerHand[card]).fadeTo(1, 1);
+			$('#btm-player-' + btm_card_count).fadeTo(1,1);
+		}
+		btm_card_count = 0;
+
 		playerValue = game.handvalue(playerHand);
 		if(playerValue == 21){
 			$("#hold").click();
 		}
+		$('#btm-total-value').html("total value: " + playerValue);
 	});
 
 	$('#hold').on("click", function() {
