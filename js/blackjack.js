@@ -293,6 +293,9 @@ $(document).ready(function(){
 			$("#hold").click();
 		}
 		$('#btm-total-value').html("total value: " + playerValue);
+		if (playerValue > 21) {
+			alert("Computer Wins!");
+		}
 	});
 
 	$('#hold').on("click", function() {
@@ -301,6 +304,13 @@ $(document).ready(function(){
 		for(h = 0; h<cHandLength; h++){
 			computerHand.push(currentHand[h]);
 		}
+		for (var card in computerHand){
+			top_card_count++;
+			console.log(playerHand[card]);
+			$('#top-player-' + top_card_count + " span").html(computerHand[card]).fadeTo(1, 1);
+			$('#top-player-' + top_card_count).fadeTo(1,1);
+		}
+		top_card_count = 0;
 		if(game.handvalue(computerHand) == 21 && playerValue !== 21){
 			alert("The Computer has Blackjacked.");
 		}else{
@@ -311,11 +321,8 @@ $(document).ready(function(){
 			}
 			computerValue = game.handvalue(computerHand);
 			game.rules(playerValue,computerValue);
-
 		}
-
 	});
-
 
 	//Debug Tools
 	$('#db-deal-top').on("click", function() {
@@ -326,19 +333,4 @@ $(document).ready(function(){
 		guiDealCard("btm-player");
 	});
 
-	// 2. Dealing Triggers
-	function guiDealCard(player) {
-
-		//get Card here
-
-		var which_player = player;
-		var which_card_position = ++top_card_count;
-		if (which_player === "btm-player") {
-			which_card = ++btm_card_count;
-		}
-		$('#' + which_player + "-" + which_card_position).fadeTo(1000, 1);
-	}
-
-
 });
-
