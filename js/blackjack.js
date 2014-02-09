@@ -188,30 +188,25 @@ function blackJack() {
 	this.rules = function(player_1,player_2) {
 		if(player_2 > 21){ // bust
 			alert("Player one wins");
-		}else if(player_1 < 22){
-			if(player_1 > player_2) {
-					alert("Player one wins");
-			}else if(player_2 > player_1){
-				alert("Player two wins");
-			}else{
-				alert("No One wins...");
-			}
-			
-		}else{
+			return null;
+		}
+		if(player_1 > 21){
 			alert("Player two wins");
+			return null;
+		} 
+		if(player_1 > player_2) {
+			alert("Player one wins");
+			return null;
 		}
-
-		if(player_1 > 21){//bust
-			alert("player one wins");
-		}else if(player_2<22){
-			if(player_1 > player_2) {
-				alert("player_1 wins");
-			}else if(player_2 > player_1) {
-				alert("player_2 wins");
-			}else{
-				alert("No One wins...");
-			}
+	    if(player_2 > player_1){
+			alert("Player two wins");
+			return null;
 		}
+		if(player_1 == player_2){
+			alert("No One wins...");
+			return null;
+		}
+		
 	};
 
 	this.hit = function(playerHand, deck){
