@@ -293,9 +293,6 @@ $(document).ready(function(){
 			$("#hold").click();
 		}
 		$('#btm-total-value').html("total value: " + playerValue);
-		if(playerValue > 21){
-			alert("Computer wins!")
-		}
 	});
 
 	$('#hold').on("click", function() {
