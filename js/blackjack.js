@@ -1,7 +1,20 @@
-function Deck(){
+function Deck(custom){
 
 	//create custom decks
-	
+	// if(argumenets.length == 1){
+	// 	var o = 0 ;
+	// 	var userAnswer=[];
+	// 	var customSuits = [];
+	// 	do{
+			
+	// 		userAnswer[o] = prompt("Please enter the suit names here! q to quit");
+			
+	// 	}while(userAnswer[o++] != q);
+	// 	for(var e = 0; e<o; e++){
+	// 		customSuits[e] = createSuit(userAnswer[e]);
+	// 	}
+	// 	this.deck(customSuits)
+	// }
 	//standard deck
 	this.hearts = createSuit("H");//hearts is an object inside object Deck
 	this.spades = createSuit("S");
@@ -47,17 +60,13 @@ function Deck(){
 	*
 	* returns 
 	* array of the deck 
-	* null if the suits aren't at least 13 cards long 
+	* 
 	*/
 	function createDeck(suits){
 		var cDeck = [];
 		var suitsLength = arguments.length;
 		var suitHand = "";
-		
-		//check how long suits are needs to pass at least two
-		if(suitsLength <=1 ){
-			return null;
-		}
+
 		//go through all the array
 		for(var i =0; i < suitsLength; i++ ){
 			//get the suit itself
@@ -81,7 +90,7 @@ function Deck(){
 	* returns 
 	* an array of a shuffled deck
 	*/
-	function shuffle (array) {
+	function shuffle(array) {
 	
 		var m = array.length;
 		var t;//this is an element that is going to be switched 
@@ -103,8 +112,29 @@ function Deck(){
 	}
 
 	/**
-	* deal(num)
+	* same as function above but allows it to be used as a seperate function
 	*
+	*/
+	this.shuffle = function(array){
+		var o = arary.length;
+		var r;
+		var q;
+		while(o > 0){
+			q = Math.floor(Math.random() * o--);
+
+			r = array[o];
+			array[o] = array[q];
+			array[q] = r;
+		}
+
+		return array;
+	}
+
+
+	/**
+	* deal(num)
+	* deal a number of cards and returns the dealt cards 
+	* 
 	* params 
 	* integer num = a number of dealt cards. (can only be ints)
 	*
@@ -132,22 +162,35 @@ function Deck(){
 		return dealt;
 	};
 
+	/**
+	* addToDeck(importDeck)
+	* add a suffled deck object to the current deck if the need to add shuffled decks arises 
+	*
+	* params 
+	* importDeck = a deck object to loop through
+	* 
+	*
+	* returns the new deck 
+	*/
 	this.addToDeck = function(importDeck){
-		
-		for(var i = 0; i < deck.shuffledeck.length; i++ ){
-			this.deck.push(importDeck[i]);
+		impoDeckLength = importDeck.length;
+		//look through the deck to add each card
+		for(var i = 0; i < impoDeckLength; i++ ){
+			
+			//return the value in the deck and push
+			this.shuffledeck.push(importDeck[i]);
 		}
-
-		this.deck.shuffle(this.deck);
+		//return the deck itself
 		return this.deck;
 	};
 }
 
 function blackJack() {
+
 	this.handvalue = function(dealthand) {
 		var hand = 0;
-		var value = 0;
 		var currentCard;
+
 		for (i=0; i<dealthand.length; i++) {
 			currentCard = dealthand[i].substring(0,2);
 			switch (currentCard)
@@ -155,57 +198,67 @@ function blackJack() {
 				case "10": 
 				case "J_": 
 				case "Q_": 
-				case "K_":  value = 10;
+				case "K_":  hand += 10;
 							break;
 
-				case "2_": value = 2;
-					break;
-				case "3_": value = 3;
-					break;
-				case "4_": value = 4;
-					break;
-				case "5_": value = 5;
-					break;
-				case "6_": value = 6;
-					break;
-				case "7_": value = 7;
-					break;
-				case "8_": value = 8;
-					break;
-				case "9_": value = 9;
-					break;
-				case "A_": if ( hand > 10) {
-					value = 1;
-				}else{ value= 11;
-					}
-					break;
+				case "2_": hand += 2;
+						   break;
+				case "3_": hand += 3;
+						   break;
+				case "4_": hand += 4;
+						   break;
+				case "5_": hand += 5;
+						   break;
+				case "6_": hand += 6;
+						   break;
+				case "7_": hand += 7;
+						   break;
+				case "8_": hand += 8;
+						   break;
+				case "9_": hand += 9;
+						   break;
+				case "A_": if ( (hand+11) <= 21) {
+							 hand += 11;
+						   }else { 
+						   	hand += 1;
+						   }
+							break;
 			}
-			hand+=value;
+			// hand+=value;
 		}
 		return hand;	
 	};
 
-	this.rules = function(player_1,player_2) {
-		if(player_2 > 21){ // bust
-			alert("Player one wins");
-			return null;
-		}
-		if(player_1 > 21){
-			alert("Player two wins");
-			return null;
-		} 
-		if(player_1 > player_2) {
-			alert("Player one wins");
-			return null;
-		}
-	    if(player_2 > player_1){
-			alert("Player two wins");
-			return null;
-		}
-		if(player_1 == player_2){
-			alert("No One wins...");
-			return null;
-		}
+	/**
+	* rules (player_1, player_2)
+	* the rules of the blackJack Game, who wins, who loses!
+	*
+	*
+	*/
+	this.rules = function(player_1, player_2) {
+		var delay = 550;
+		setTimeout(function(){
+			if(player_2 > 21){ // bust
+				alert("Player one wins");
+				return null;
+			}
+			if(player_1 > 21){
+				alert("Player two wins");
+				return null;
+			} 
+			if(player_1 > player_2 ) {
+				alert("Player one wins");
+				return null;
+			}
+		    if(player_2 > player_1){
+				alert("Player two wins!");
+				return null;
+			}
+			if(player_1 == player_2){
+				alert("No One wins...");
+				return null;
+			}
+		}, delay);
 		
 	};
 
@@ -234,7 +287,7 @@ function blackJack() {
 			compCurrentHand.push((currentHand[0][0]));
 			cValue = compValue + this.handvalue(compCurrentHand);
 			if(cValue < 21){
-				computerHand.push(currentHand[0]);
+				computerHand.push(currentHand[0][0]);
 				this.computerPlay(computerHand, deck);
 			}
 			else{
@@ -247,37 +300,72 @@ function blackJack() {
 
 $(document).ready(function(){
 
+	//ensure the board has a nice opacity 
 	$('.guiCard').fadeTo(0, 0.1);
 	$('.guiCard span').fadeTo(0, 0.1);
 
-	var currentHand = [];
-	var playerHand =[];
-	var computerHand = [];
+	//set all the variables to be used but don't institate so nothing can be done
+	var currentHand;
+	var playerHand;
+	var computerHand;
 	var gameDeck;
 	var game;
-	var playerValue = 0;
+	var playerValue;
 	var computerValue;
+	var anotherDeck = new Deck();
+
+	//set the GUI to be nicer
 	//patience is a virture or something
 	var deck_position = $('#guiDeck').position();
-	var top_card_count = 0;
-	var btm_card_count = 0;
+	var top_card_count;
+	var btm_card_count;
+	var played;
+	var player_1_played; 
 
 	//Buttons & actions
+	//clicking the start!
 	$('#strt_btn').on("click", function() {
-		console.log("Start Game");
+
+		//hide the start button now!
 		$(this).hide();
+
+		//clean up the board 
+		$('.guiCard').fadeTo(0, 0.1);
+		$('.guiCard span').fadeTo(0, 0.1);
+
+		//start the game institate values here, don't forget!
 		game = new blackJack();
 		gameDeck = new Deck();
+		currentHand = [];
+		playerHand = [];
+		computerHand = [];
+		playerValue = 0;
+		compValue = 0;
+		top_card_count = 0;
+		btm_card_count = 0;
+		
+		played = false;
+		player_1_played = false; 
+
+		//add another deck for many different cards
+		
+		//show the player total
+		$('#btm-total-value').html("total value: " + playerValue);
 	});
 
+	//what happens when the player wants to hit
 	$('#hit').on("click", function() {
+		//player has played 
+		player_1_played = true;
 		currentHand = game.hit(playerHand, gameDeck);
+
+		//go through the hand and push the the card back
 		for(var h = 0; h<currentHand.length; h++){
 			playerHand.push(currentHand[h]);
 		}
+		//display the cards correctly
 		for (var card in playerHand){
 			btm_card_count++;
-			console.log(playerHand[card]);
 			$('#btm-player-' + btm_card_count + " span").html(playerHand[card]).fadeTo(1, 1);
 			$('#btm-player-' + btm_card_count).fadeTo(1,1);
 		}
@@ -289,34 +377,44 @@ $(document).ready(function(){
 		}
 		$('#btm-total-value').html("total value: " + playerValue);
 		if (playerValue > 21) {
-			alert("Computer Wins!");
+
+			alert("Player 2 Wins!");
+			$("#strt_btn").show();
+
 		}
 	});
 
 	$('#hold').on("click", function() {
-		currentHand = game.hit(computerHand, gameDeck);
-		var cHandLength = currentHand.length;
-		for(h = 0; h<cHandLength; h++){
-			computerHand.push(currentHand[h]);
-		}
-		for (var card in computerHand){
-			top_card_count++;
-			console.log(playerHand[card]);
-			$('#top-player-' + top_card_count + " span").html(computerHand[card]).fadeTo(1, 1);
-			$('#top-player-' + top_card_count).fadeTo(1,1);
-		}
-		top_card_count = 0;
-		if(game.handvalue(computerHand) == 21 && playerValue !== 21){
-			alert("The Computer has Blackjacked.");
-		}else{
-			compHand = game.computerPlay(computerHand,gameDeck);
-			var compLength = compHand.length;
-			for(var z=0; z<compLength; z++){
-				computerHand.push(compHand[z]);
+			var delay = 10000;
+
+			if(playerValue <= 21  && played == false && player_1_played == true){
+				played = true;
+				currentHand = game.hit(computerHand, gameDeck);
+				var cHandLength = currentHand.length;
+				for(h = 0; h<cHandLength; h++){
+					computerHand.push(currentHand[h]);
+				}
+				top_card_count = 0;
+
+				for (var card in computerHand){
+					top_card_count++;
+					$('#top-player-' + top_card_count + " span").html(computerHand[card]).fadeTo(1, 1);
+					$('#top-player-' + top_card_count).fadeTo(1,1);
+				}
+				if(game.handvalue(computerHand) == 21 && playerValue != 21 ){
+					setTimeout(function(){
+						alert("The Computer has Blackjacked.");
+					}, delay);
+				}else{
+					compHand = game.computerPlay(computerHand,gameDeck);
+					var compLength = compHand.length;
+					computerValue = game.handvalue(computerHand);
+					game.rules(playerValue,computerValue);
+				}
+				setTimeout(function(){
+					$("#strt_btn").show();
+				},delay);
 			}
-			computerValue = game.handvalue(computerHand);
-			game.rules(playerValue,computerValue);
-		}
 	});
 
 	//Debug Tools
